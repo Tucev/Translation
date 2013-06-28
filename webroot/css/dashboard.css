@@ -1,0 +1,87 @@
+.wrapper {
+    top: 0;
+    left: 0;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #666666;
+}
+
+.sidebar {
+    position: absolute;
+    height: 100%;
+    width: 150px;
+}
+
+.content-wrapper {
+    margin-left: 150px;
+    height: 100%;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 50px;
+    }
+    .content-wrapper {
+        margin-left: 50px;
+    }
+}
+
+.navigation {
+    height: 50px;
+}
+
+	.breadcrumbs {
+	}
+	
+		.breadcrumbs-list {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		
+			.breadcrumb {
+				display: block;
+				float: left;
+				line-height: 50px;
+				font-family: sans-serif;
+				color: white;
+				text-shadow: rgba(0,0,0,0.65) 0 -1px 0;
+			}
+			
+				.breadcrumb-link {
+					display: block;
+					text-decoration: none;
+					color: inherit;
+				}
+				
+				.breadcrumb-separator {
+					margin: 0 8px;
+				}
+			
+			.bc-home {
+				background: url("/img/icons/home.png") center 0 no-repeat;
+				width: 20px;
+				height: 20px;
+				margin: 15px 0 15px 4px;
+				-webkit-filter: invert() drop-shadow(rgba(0,0,0,0.65) 0 -1px 0);
+			}
+
+    .title {
+		font-family: sans-serif;
+        line-height: 50px;
+        color: white;
+		text-shadow: rgba(0,0,0,0.65) 0 -1px 0;
+        text-align: right;
+        padding-right: 15px;
+    }
+
+.container {
+	z-index: 99;
+    background-color: #151515;
+    height: 100%;
+    border-top-left-radius: 3px 3px;
+    box-shadow: rgba(0,0,0,0.75) 0 1px 3px;
+}
