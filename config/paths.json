@@ -1,0 +1,8 @@
+{
+	"root" : "/",	"classes" : "classes/",
+	"config" : "config/",
+	"controllers" : "controllers/",
+	"views" : "views/",
+	"languages" : "langs/",
+	"webroot" : "webroot/"
+}
