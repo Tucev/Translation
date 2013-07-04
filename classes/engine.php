@@ -4,34 +4,45 @@
 		static private $lang = null;
 	
 		static function locale() {
-			echo "Taddaaa !";
+			if(self::$lang != null && Language::isSupported(self::$lang)) {
+				return true;
+			} else if(Language::isSupported(Language::getBrowser())) {
+				self::$lang = Language::getBrowser();
+			} else {
+				self::$lang = Language::getDefault();
+			}
+			
 		}
 	
 		static function parse() {
 			$url_string = trim($_SERVER['REQUEST_URI'], '/');
 			$url_array = explode('/', $url_string);
-			$url_length = count($url_array);
 			
-			if($url_length == 1) {
+			if(strlen($url_array[0]) == 2) {
+				$url_lang = array_shift($url_array);
+				self::$lang = $url_lang;
+			}
+			
+			if(count($url_array) >= 1) {
 				return $url_array[0];
 			} else {
-				if(strlen($url_array[0]) == 2) {
-					$url_lang = array_shift($url_array);
-					self::$lang = $url_lang;
-					return $url_array[0];
-				} else {
-					return false;
-				}
+				return false;
 			}
 		}
 		
-		static function render() {
+		static function render($nestedContent) {
+			self::loadTemplate();
+		}
+		
+		static function init() {
 			self::$uri = self::parse();
-			var_dump(self::$uri, self::$lang);
-			// load the language file
 			self::locale();
-			// load the "controller" file that manages the rendering template
-			
-			// load the template, complete it, and render it
+			if(self::$uri) {
+				$c = self::loadController();
+				
+				$t = self::loadTemplate();
+				$pt = self::processTemplate($t);
+			}
+			self::render($pt);
 		}
 	}
