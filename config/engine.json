@@ -1,5 +1,8 @@
 {
 	"lang" : {
-		"default" : "en"
+		"default" : "en",
+		"content" : {
+			"placeholder" : "content"
+		}
 	}
 }

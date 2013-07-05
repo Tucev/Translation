@@ -3,6 +3,18 @@
 		static private $uri = null;
 		static private $lang = null;
 	
+		static function init() {
+			self::$uri = self::parse();
+			self::locale();
+			if(self::$uri) {
+				self::loadController();
+				
+				$v = self::loadView();
+				self::processView($v);
+			}
+			self::render();
+		}
+	
 		static function locale() {
 			if(self::$lang != null && Language::isSupported(self::$lang)) {
 				return true;
@@ -30,19 +42,38 @@
 			}
 		}
 		
-		static function render($nestedContent) {
-			self::loadTemplate();
+		static function render() {
+			$v = self::loadView("default");
+			$pv = self::processView($v);
+			echo $pv;
 		}
 		
-		static function init() {
-			self::$uri = self::parse();
-			self::locale();
-			if(self::$uri) {
-				$c = self::loadController();
-				
-				$t = self::loadTemplate();
-				$pt = self::processTemplate($t);
+		static function loadController($name = false) {
+			if($name == false) {
+				$name = self::$uri;
 			}
-			self::render($pt);
+			
+			$path = ROOT . Config::get("paths.controllers") . $name . ".php";
+			if(file_exists($path)) {
+				require_once($path);
+			}
+		}
+		
+		static function loadView($name = false) {
+			if($name == false) {
+				$name = self::$uri;
+			}
+			
+			$path = ROOT . Config::get("paths.views") . $name . ".html";
+			if(file_exists($path)) {
+				$content = get_file_contents($path);					
+				return $content;
+			}
+			return false;
+		}
+		
+		static function processView($markup) {
+			$processed = preg_replace("/{{ (.*) }}/", "", $markup);
+			return $processed;
 		}
 	}

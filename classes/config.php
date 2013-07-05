@@ -1,17 +1,4 @@
 <?php
-	function object_to_array($object) {
-		$array = [];
-		foreach($object as $key => $value) {
-			$type = gettype($value);
-			if($type == "object" || $type == "array") {
-				$array[$key] = object_to_array($value);
-			} else {
-				$array[$key] = $value;
-			}
-		}
-		return $array;
-	}
-
 	class Config {
 		static private $path = 'config/';
 		static private $wildcard = '*.json';
@@ -24,19 +11,10 @@
 			$config_reg = preg_quote(ROOT . self::$path, '/') . $wildcard_reg;
 			
 			foreach($config_files as $file) {
-				$config = json_decode(self::loadFile($file));
+				$config = json_decode(get_file_contents($file));
 				$gkey = preg_replace("/" . $config_reg . "/", '$1', $file);
 				self::$config[$gkey] = object_to_array($config);
 			}
-		}
-		
-		static private function loadFile($file) {
-			ob_start();
-			include $file;
-			$config = ob_get_contents();
-			ob_end_clean();
-			
-			return $config;
 		}
 		
 		static private function set($selector, $data, $config = false) {
