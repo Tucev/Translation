@@ -2,6 +2,7 @@
 	class Engine {
 		static private $uri = null;
 		static private $lang = null;
+		static private $content = null;
 	
 		static function init() {
 			self::$uri = self::parse();
@@ -10,7 +11,8 @@
 				self::loadController();
 				
 				$v = self::loadView();
-				self::processView($v);
+				$pv = self::processView($v, true);
+				self::$content = Language::process($pv, self::$lang);
 			}
 			self::render();
 		}
@@ -42,9 +44,13 @@
 			}
 		}
 		
+		static function getURI() {
+			return self::$uri;
+		}
+		
 		static function render() {
 			$v = self::loadView("default");
-			$pv = self::processView($v);
+			$pv = self::processView($v, [ "content" => self::$content]);
 			echo $pv;
 		}
 		
@@ -72,8 +78,8 @@
 			return false;
 		}
 		
-		static function processView($markup) {
-			$processed = preg_replace("/{{ (.*) }}/", "", $markup);
+		static function processView($markup, $data) {
+			$processed = preg_replace("/{{ (.*) }}/e", 'Data::get("$1", $data)', $markup);
 			return $processed;
 		}
 	}

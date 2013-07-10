@@ -22,12 +22,28 @@
 			if(array_search($lang, self::getSupported()) === false) {
 				return false;
 			} else {
-				return true;
+				if(file_exists(ROOT. Config::get("paths.languages") . $lang . "/" . Engine::getURI() . ".json")) {
+					return true;	
+				}
 			}
+			return false;
 		}
 		
 		static function getDefault() {
 			$default = Config::get("engine.lang.default");
 			return $default;
+		}
+		
+		static function get($lang) {
+			$file = get_file_contents(ROOT. Config::get("paths.languages") . $lang . "/" . Engine::getURI() . ".json");
+			$lang_object = json_decode($file);
+			$lang_array["lgs"][Engine::getURI()] = object_to_array($lang_object);
+			
+			return $lang_array;
+		}
+		
+		static function process($view, $lang = false) {
+			$content = Engine::processView($view, self::get($lang));
+			return $content;
 		}
 	}
