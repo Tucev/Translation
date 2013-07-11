@@ -5,7 +5,7 @@
 			if($value) {
 				return $value;
 			} else {
-				return "{{ " . $selector . " }}";
+				return ""; //"{{ " . $selector . " }}";
 			}
 		}
 	}

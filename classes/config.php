@@ -11,9 +11,16 @@
 			$config_reg = preg_quote(ROOT . self::$path, '/') . $wildcard_reg;
 			
 			foreach($config_files as $file) {
-				$config = json_decode(get_file_contents($file));
+				$config = object_to_array(json_decode(get_file_contents($file)));
 				$gkey = preg_replace("/" . $config_reg . "/", '$1', $file);
-				self::$config[$gkey] = object_to_array($config);
+				
+				if(self::get("controller", $config)) {
+					require_once(ROOT . $config["controller"]);
+					$config["controller"] = false;
+					$config = array_filter($config);
+				}
+				
+				self::$config[$gkey] = $config;
 			}
 		}
 		
@@ -26,10 +33,15 @@
 			$key = array_shift($query);
 			
 			if(count($query) >= 1) {
-				
+				if(isset($config[$key])) {
+					self::set(implode(".", $query), $data, $config[$key]);
+				}
 			} else {
-				
+				if(isset($config[$key])) {
+					$config[$key] = $data;
+				}
 			}
+			return false;
 		}
 		
 		// Thumbs up for the recursive function :)

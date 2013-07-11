@@ -1,5 +1,7 @@
 {
-	"root" : "/",	"classes" : "classes/",
+	"controller" : "controllers/paths.php",
+	"root" : "/",	
+	"classes" : "classes/",
 	"config" : "config/",
 	"controllers" : "controllers/",
 	"views" : "views/",
