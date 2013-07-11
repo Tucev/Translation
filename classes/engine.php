@@ -3,6 +3,7 @@
 		static private $uri = null;
 		static private $lang = null;
 		static private $content = null;
+		static private $name = null;
 	
 		static function init() {
 			self::$uri = self::parse();
@@ -25,7 +26,6 @@
 			} else {
 				self::$lang = Language::getDefault();
 			}
-			
 		}
 	
 		static function parse() {
@@ -48,15 +48,57 @@
 			return self::$uri;
 		}
 		
+		static function getName() {
+			return self::$name;
+		}
+		
+		static function setName($name) {
+			self::$name = $name;
+		}
+		
 		static function render() {
 			$v = self::loadView("default");
-			$pv = self::processView($v, [ "content" => self::$content]);
+			$data = self::getData();
+			$pv = self::processView($v, $data);
 			echo $pv;
+		}
+		
+		static function getData() {
+			$data = [];
+			
+			$data[Config::get("engine.content.placeholder")] = self::getContent();
+			$data["css"] = self::getCSS();
+			$data["title"] = self::getTitle();
+			$data["js"] = self::getJS();
+			
+			return $data;
+		}
+		
+		static function getContent() {
+			if(self::$content != null) {
+				return self::$content;
+			} else {
+				return false;
+			}
+		}
+		
+		static function getCSS() {
+			return false;	
+		}
+		
+		static function getTitle() {
+			return false;
+		}
+		
+		static function getJS() {
+			return false;
 		}
 		
 		static function loadController($name = false) {
 			if($name == false) {
 				$name = self::$uri;
+			} else {
+				self::$name = $name;
 			}
 			
 			$path = ROOT . Config::get("paths.controllers") . $name . ".php";
@@ -78,8 +120,8 @@
 			return false;
 		}
 		
-		static function processView($markup, $data) {
-			$processed = preg_replace("/{{ (.*) }}/e", 'Data::get("$1", $data)', $markup);
+		static function processView($markup, $data, $reg = "/{{ ([^lgs].*) }}/") {
+			$processed = preg_replace($reg . "e", 'Data::get("$1", $data)', $markup);
 			return $processed;
 		}
 	}
