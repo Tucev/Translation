@@ -27,7 +27,6 @@
 				self::$lang = Language::getDefault();
 			}
 		}
-	
 		static function parse() {
 			$url_string = trim($_SERVER['REQUEST_URI'], '/');
 			$url_array = explode('/', $url_string);
@@ -43,15 +42,12 @@
 				return false;
 			}
 		}
-		
 		static function getURI() {
 			return self::$uri;
 		}
-		
 		static function getName() {
 			return self::$name;
 		}
-		
 		static function setName($name) {
 			self::$name = $name;
 		}
@@ -83,14 +79,35 @@
 		}
 		
 		static function getCSS() {
+			$css = glob(Config::get("paths.webroot").Config::get("engine.css.paths").Config::get("engine.css.wildcard"));
 			return false;	
+		}
+		
+		static function setCSS() {
+			return false;	
+		}
+		
+		static function addCSS() {
+			return false;
 		}
 		
 		static function getTitle() {
 			return false;
 		}
 		
+		static function setTitle() {
+			return false;
+		}
+		
 		static function getJS() {
+			return false;
+		}
+		
+		static function setJS() {
+			return false;
+		}
+		
+		static function addJS() {
 			return false;
 		}
 		
@@ -101,25 +118,23 @@
 				self::$name = $name;
 			}
 			
-			$path = ROOT . Config::get("paths.controllers") . $name . ".php";
+			$path = Config::get("paths.controllers") . $name . ".php";
 			if(file_exists($path)) {
 				require_once($path);
 			}
 		}
-		
 		static function loadView($name = false) {
 			if($name == false) {
 				$name = self::$uri;
 			}
 			
-			$path = ROOT . Config::get("paths.views") . $name . ".html";
+			$path = Config::get("paths.views") . $name . ".html";
 			if(file_exists($path)) {
 				$content = get_file_contents($path);					
 				return $content;
 			}
 			return false;
 		}
-		
 		static function processView($markup, $data, $reg = "/{{ ([^lgs].*) }}/") {
 			$processed = preg_replace($reg . "e", 'Data::get("$1", $data)', $markup);
 			return $processed;

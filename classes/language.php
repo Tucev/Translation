@@ -22,7 +22,7 @@
 			if(array_search($lang, self::getSupported()) === false) {
 				return false;
 			} else {
-				if(file_exists(ROOT. Config::get("paths.languages") . $lang . "/" . Engine::getURI() . ".json")) {
+				if(file_exists(Config::get("paths.languages") . $lang . "/" . Engine::getURI() . ".json")) {
 					return true;	
 				}
 			}
@@ -35,7 +35,7 @@
 		}
 		
 		static function get($lang) {
-			$file = get_file_contents(ROOT. Config::get("paths.languages") . $lang . "/" . Engine::getURI() . ".json");
+			$file = get_file_contents(Config::get("paths.languages") . $lang . "/" . Engine::getURI() . ".json");
 			$lang_object = json_decode($file);
 			$lang_array["lgs"][Engine::getURI()] = object_to_array($lang_object);
 			

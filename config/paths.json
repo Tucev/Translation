@@ -1,6 +1,5 @@
 {
 	"controller" : "controllers/paths.php",
-	"root" : "/",	
 	"classes" : "classes/",
 	"config" : "config/",
 	"controllers" : "controllers/",

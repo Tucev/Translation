@@ -15,9 +15,10 @@
 				$gkey = preg_replace("/" . $config_reg . "/", '$1', $file);
 				
 				if(self::get("controller", $config)) {
-					require_once(ROOT . $config["controller"]);
+					$path = ROOT . $config["controller"];
 					$config["controller"] = false;
 					$config = array_filter($config);
+					require_once($path);
 				}
 				
 				self::$config[$gkey] = $config;

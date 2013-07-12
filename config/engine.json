@@ -2,6 +2,8 @@
 	"lang" : {
 		"default" : "en"
 	}, "content" : {
-			"placeholder" : "content"
+		"placeholder" : "content"
+	}, "css" : {
+		"path" : "css/"
 	}
 }
