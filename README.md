@@ -1,1 +1,1 @@
-Insert some clever text here.  
+Translation platform, made with PHP 5.4
