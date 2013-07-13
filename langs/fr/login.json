@@ -1,5 +1,12 @@
 {
+	"title" : "Connexion",
 	"login" : "Identifiant",
 	"password" : "Mot de passe",
-	"submit" : "Connexion"
+	"remember" : "Se souvenir de moi",
+	"submit" : "Connexion",
+	"status" : {
+		"post_sent" : "Des données POST ont été envoyées !",
+		"credentials_entered" : "Des identifiants ont été envoyés ! ",
+		"no_credentials" : "Aucun identifiants envoyés ..."
+	}
 }

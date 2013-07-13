@@ -1,5 +1,12 @@
 {
+	"title" : "Login",
 	"login" : "Username",
 	"password" : "Password",
-	"submit" : "Login"
+	"remember" : "Remember me",
+	"submit" : "Login",
+	"status" : {
+		"post_sent" : "POST Data was sent !",
+		"credentials_entered" : "Crendentials were entered ! ",
+		"no_credentials" : "No credentials were entered ..."
+	}
 }
