@@ -24,12 +24,10 @@
 				self::$config[$gkey] = $config;
 			}
 		}
-		
 		static private function set($selector, $data, $config = false) {
 			if($config == false) {
 				$config = self::$config;
 			}
-			
 			$query = explode(".", $selector);
 			$key = array_shift($query);
 			
@@ -44,7 +42,6 @@
 			}
 			return false;
 		}
-		
 		// Thumbs up for the recursive function :)
 		static public function get($selector, $config = false) {
 			if($config == false) {
