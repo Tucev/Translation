@@ -135,7 +135,7 @@
 			}
 			return false;
 		}
-		static function processView($markup, $data, $reg = "/{{ ([^lgs].*) }}/") {
+		static function processView($markup, $data = true, $reg = "/{{ ((?!lgs\.)[\w|\.]*) }}/") {
 			$processed = preg_replace($reg . "e", 'Data::get("$1", $data)', $markup);
 			return $processed;
 		}
