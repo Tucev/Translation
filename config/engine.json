@@ -4,6 +4,20 @@
 	}, "content" : {
 		"placeholder" : "content"
 	}, "css" : {
-		"path" : "css/"
+		"path" : "css/",
+		"wildcard" : "*.css",
+		"files" : {
+			"0" : "reset.css",
+			"1" : "ui.css",
+			"2" : "default.css"
+		}
+	}, "js" : {
+		"path" : "js/",
+		"wildcard" : "*.js",
+		"files" : {
+			"0" : "main.js"
+		}
+	}, "title" : {
+		"separator" : " | "
 	}
 }
