@@ -43,7 +43,7 @@
 		}
 		
 		static function process($view, $lang = false) {
-			$content = Engine::processView($view, self::get($lang), "/{{ ([lgs\.].*) }}/");
+			$content = Engine::processView($view, self::get($lang), "/{{ (lgs\..*) }}/");
 			return $content;
 		}
 	}
