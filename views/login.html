@@ -1,6 +1,10 @@
-<div class="login-status"></div>
-<form class="login-form" method="POST">
-	<input name="login" type="text" placeholder="{{ lgs.login.login }}"/>
-	<input name="password" type="password" placeholder="{{ lgs.login.password }}"/>
-	<input type="submit" value="{{ lgs.login.submit }}"/>
-</form>
+		<div class="login-status">{{ login.status }}</div>
+		<form class="login-form" method="POST">
+			<input name="login" type="text" placeholder="{{ lgs.login.login }}"/>
+			<input name="password" type="password" placeholder="{{ lgs.login.password }}"/>
+			<label for="remember">
+				<input name="remember" type="checkbox"/>
+				{{ lgs.login.remember }}
+			</label>
+			<input type="submit" value="{{ lgs.login.submit }}"/>
+		</form>
